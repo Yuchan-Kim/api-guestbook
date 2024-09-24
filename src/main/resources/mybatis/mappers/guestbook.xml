@@ -1,0 +1,43 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+
+
+<mapper namespace="guestbook">
+	<delete id = "delete" parameterType = "int">
+		<![CDATA[
+		delete from guest
+		where person_id = #{person_id}
+		]]>
+		
+	</delete>
+	
+	<insert id="insert" parameterType="com.javaex.vo.guestbookVo">
+	    <![CDATA[
+	    INSERT INTO guest (name, pw, comments, submitTime)
+	    VALUES (#{name}, #{password}, #{comments}, NOW())
+	    ]]>
+	</insert>
+
+	
+	<select id="selectList" resultType="com.javaex.vo.guestbookVo">
+	    <![CDATA[
+	    SELECT person_id AS personId, name, pw AS password, comments, submitTime AS date 
+	    FROM guest
+	    ]]>
+	</select>
+
+
+	
+	<select id="selectOne" parameterType="int" resultType="com.javaex.vo.guestbookVo">
+	    <![CDATA[ select person_id, name, pw, comments, submitTime from guest where person_id = #{personId} ]]>
+	</select>
+
+	
+	<update id="update" parameterType = "com.javaex.vo.guestbookVo" >
+		<![CDATA[ update person set name = #{name} , pw = #{password} , comments = #{comments}  where person_id = #{personId} ]]>
+	</update>
+	
+	
+	
+</mapper>
